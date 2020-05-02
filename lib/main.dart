@@ -1,114 +1,37 @@
+import 'package:counterstopwatchexample/counter.dart';
 import 'package:counterstopwatchexample/stopwatch.dart';
 import 'package:flutter/material.dart';
-
-import 'counter.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
+        textTheme: const TextTheme(
+          body1: TextStyle(fontSize: 30.0),
+        ),
       ),
-      home: MyHomePage(title: 'Stopwatch Counter Example'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Stopwatch Counter Example'),
+        ),
+        body: MyHomePage(),
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Widget> list = [];
-  String newTitle = "";
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 12,
-            child: ListView.separated(
-              itemBuilder: (context, index) => list.elementAt(index),
-              separatorBuilder: (context, index) => Divider(
-                color: Colors.grey,
-              ),
-              itemCount: list.length,
-            ),
-          ),
-          Container(
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[400],
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                  offset: Offset(
-                    0.0,
-                    -2.0,
-                  ),
-                ),
-              ],
-            ),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: addCounter,
-                      child: Text("Add Counter"),
-                    ),
-                    RaisedButton(
-                      onPressed: addStopwatch,
-                      child: Text("Add Stopwatch"),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: list.length > 0 ? removeLast : null,
-                      child: Text("Remove Last"),
-                    ),
-                    RaisedButton(
-                      onPressed: list.length > 0 ? removeAll : null,
-                      child: Text("Remove All"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  List<Widget> list = <Widget>[];
 
   void addCounter() {
     setState(() {
@@ -130,7 +53,73 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void removeAll() {
     setState(() {
-      list = [];
+      list = <Widget>[];
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          flex: 12,
+          child: ListView.separated(
+            itemBuilder: (BuildContext context, int index) =>
+                list.elementAt(index),
+            separatorBuilder: (BuildContext context, int index) =>
+                Divider(
+                  color: Colors.grey,
+                ),
+            itemCount: list.length,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey[400],
+                blurRadius: 10.0,
+                spreadRadius: 2.0,
+                offset: const Offset(
+                  0.0,
+                  -2.0,
+                ),
+              ),
+            ],
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: addCounter,
+                    child: const Text('Add Counter'),
+                  ),
+                  RaisedButton(
+                    onPressed: addStopwatch,
+                    child: const Text('Add Stopwatch'),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: list.isNotEmpty ? removeLast : null,
+                    child: const Text('Remove Last'),
+                  ),
+                  RaisedButton(
+                    onPressed: list.isNotEmpty ? removeAll : null,
+                    child: const Text('Remove All'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

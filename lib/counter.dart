@@ -1,9 +1,6 @@
-import 'package:counterstopwatchexample/stopwatch/dependencies.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatefulWidget {
-  final Dependencies dependencies = new Dependencies();
-
   @override
   _CounterState createState() => _CounterState();
 }
@@ -37,13 +34,12 @@ class _CounterState extends State<Counter> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                counter.toString(),
-                style: widget.dependencies.textStyle,
-              ),
               RaisedButton(
                 onPressed: incCounter,
                 child: Icon(Icons.add),
+              ),
+              Text(
+                counter.toString(),
               ),
               RaisedButton(
                 onPressed: decCounter,

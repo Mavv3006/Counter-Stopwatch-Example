@@ -7,12 +7,13 @@ import 'package:counterstopwatchexample/stopwatch/minutes_and_secounds.dart';
 import 'package:flutter/material.dart';
 
 class TimerText extends StatefulWidget {
-  TimerText({this.dependencies});
+  const TimerText({this.dependencies});
 
   final Dependencies dependencies;
 
+  @override
   TimerTextState createState() =>
-      new TimerTextState(dependencies: dependencies);
+      TimerTextState(dependencies: dependencies);
 }
 
 class TimerTextState extends State<TimerText> {
@@ -24,9 +25,10 @@ class TimerTextState extends State<TimerText> {
 
   @override
   void initState() {
-    timer = new Timer.periodic(
-        new Duration(milliseconds: dependencies.timerMillisecondsRefreshRate),
-        callback);
+    timer = Timer.periodic(
+      Duration(milliseconds: dependencies.timerMillisecondsRefreshRate),
+      callback,
+    );
     super.initState();
   }
 
@@ -44,13 +46,14 @@ class TimerTextState extends State<TimerText> {
       final int seconds = (hundreds / 100).truncate();
       final int minutes = (seconds / 60).truncate();
       final int hours = (minutes / 60).truncate();
-      final ElapsedTime elapsedTime = new ElapsedTime(
+      final ElapsedTime elapsedTime = ElapsedTime(
         hundreds: hundreds,
         seconds: seconds,
         minutes: minutes,
         hours: hours,
       );
-      for (final listener in dependencies.timerListeners) {
+      for (final ValueChanged<ElapsedTime> listener in dependencies
+          .timerListeners) {
         listener(elapsedTime);
       }
     }
@@ -58,14 +61,14 @@ class TimerTextState extends State<TimerText> {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        new RepaintBoundary(
-          child: new MinutesAndSeconds(dependencies: dependencies),
+        RepaintBoundary(
+          child: MinutesAndSeconds(dependencies: dependencies),
         ),
-        new RepaintBoundary(
-          child: new Hundreds(dependencies: dependencies),
+        RepaintBoundary(
+          child: Hundreds(dependencies: dependencies),
         ),
       ],
     );

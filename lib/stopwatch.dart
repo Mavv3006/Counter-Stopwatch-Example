@@ -8,7 +8,7 @@ class Stopwatch extends StatefulWidget {
 }
 
 class _StopwatchState extends State<Stopwatch> {
-  final Dependencies dependencies = new Dependencies();
+  final Dependencies dependencies = Dependencies();
 
   void start() {
     setState(() {
@@ -40,15 +40,15 @@ class _StopwatchState extends State<Stopwatch> {
           children: <Widget>[
             RaisedButton(
               onPressed: dependencies.stopwatch.isRunning ? null : start,
-              child: Text("Start"),
+              child: const Text('Start'),
             ),
             RaisedButton(
               onPressed: dependencies.stopwatch.isRunning ? stop : null,
-              child: Text("Stop"),
+              child: const Text('Stop'),
             ),
             RaisedButton(
               onPressed: reset,
-              child: Text("Reset"),
+              child: const Text('Reset'),
             ),
           ],
         ),

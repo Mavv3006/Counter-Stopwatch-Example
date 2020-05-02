@@ -3,12 +3,13 @@ import 'package:counterstopwatchexample/stopwatch/elapsed_time.dart';
 import 'package:flutter/cupertino.dart';
 
 class MinutesAndSeconds extends StatefulWidget {
-  MinutesAndSeconds({this.dependencies});
+  const MinutesAndSeconds({this.dependencies});
 
   final Dependencies dependencies;
 
+  @override
   MinutesAndSecondsState createState() =>
-      new MinutesAndSecondsState(dependencies: dependencies);
+      MinutesAndSecondsState(dependencies: dependencies);
 }
 
 class MinutesAndSecondsState extends State<MinutesAndSeconds> {
@@ -40,9 +41,9 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
 
   @override
   Widget build(BuildContext context) {
-    String minutesStr = (minutes % 60).toString().padLeft(2, '0');
-    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-    String hoursStr = (hours % 60).toString().padLeft(2, '0');
-    return new Text('$hoursStr:$minutesStr:$secondsStr.', style: dependencies.textStyle);
+    final String minutesStr = (minutes % 60).toString().padLeft(2, '0');
+    final String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+    final String hoursStr = (hours % 60).toString().padLeft(2, '0');
+    return Text('$hoursStr:$minutesStr:$secondsStr.');
   }
 }
